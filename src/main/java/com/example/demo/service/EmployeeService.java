@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.EmployeeEntity;
 import com.example.demo.entity.QEmployeeEntity;
+import com.example.demo.predicate.EmployeePredicate;
 import com.example.demo.repository.EmployeeRepository;
 import com.querydsl.core.types.Predicate;
 
@@ -16,6 +18,9 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository empRepo;
+
+	@Autowired
+	private EmployeePredicate employeePredicate;
 
 	public List<EmployeeEntity> getEmployeeDetails(LocalDate dob) {
 		List<EmployeeEntity> empEntityList = empRepo.findByDob(dob);
@@ -42,7 +47,7 @@ public class EmployeeService {
 	}
 
 	public List<EmployeeEntity> getEmployeesByStartEndDateNamedQuery() {
-		List<EmployeeEntity> empEntityList = empRepo.findByName();
+		List<EmployeeEntity> empEntityList = empRepo.find();
 
 		return empEntityList;
 	}
@@ -64,4 +69,16 @@ public class EmployeeService {
 	static Predicate hasSalary(Double salary) {
 		return (Predicate) QEmployeeEntity.employeeEntity.salary.gt(salary);
 	}
+
+	public List<EmployeeEntity> getEmployeeQueryDSL(HashMap<String, String> map) {
+
+		Predicate predicate = employeePredicate.buildEmployeePredicate(map);
+		Iterable<EmployeeEntity> employees = empRepo.findAll(predicate);
+		return (List<EmployeeEntity>) employees;
+	}
+
+	public void save(EmployeeEntity empData) {
+		empRepo.save(empData);
+	}
+
 }

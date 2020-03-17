@@ -21,14 +21,14 @@ public interface EmployeeRepository extends CrudRepository<EmployeeEntity, Long>
 	//FindDistinctTitleBy
 	//FindByTitleOrderByTitleAsc
 
-    @Query(value = "SELECT t FROM EmployeeEntity t where t.startDate = :startDate AND t.endDate =:endDate", nativeQuery = true) 
+    @Query(value = "SELECT t FROM EmployeeEntity t where t.startDate = :startDate AND t.endDate =:endDate") 
 	public List<EmployeeEntity> findByStartDateAndEndDateQueryMethod(LocalDate startDate, LocalDate endDate);
 
     @Query(value = "SELECT * FROM TBL_EMPLOYEES t where t.ST_DATE =:startDate AND t.END_DATE =:endDate",nativeQuery=true ) 
 	public List<EmployeeEntity> findByStartDateAndEndDateNative(LocalDate startDate, LocalDate endDate);
     
-    @Query(name = "findByNameExample")
-	public List<EmployeeEntity> findByName();
+    @Query(name = "findByyy")
+	public List<EmployeeEntity> find();
 	
 	@Query(name = "EmployeeEntity.findByNameNative", nativeQuery = true)
 	public List<EmployeeEntity> findByNameNativeExample();

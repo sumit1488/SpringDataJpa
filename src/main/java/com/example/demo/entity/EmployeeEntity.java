@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TBL_EMPLOYEES")
-@NamedQuery(name = "EmployeeEntity.findByNameExample", query = "SELECT t FROM EmployeeEntity t WHERE t.name = 'Ajay'")
+@NamedQuery(name = "findByyy", query = "SELECT t FROM EmployeeEntity t WHERE t.name = 'Ajay'")
 @NamedNativeQuery(name = "EmployeeEntity.findByNameNative", query = "SELECT * FROM TBL_EMPLOYEES t WHERE t.NAME = 'Priya'", resultClass = EmployeeEntity.class)
 public class EmployeeEntity {
 
